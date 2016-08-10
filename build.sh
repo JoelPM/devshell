@@ -14,6 +14,13 @@ SDKS=(
   )
 
 for SDK in ${SDKS[@]}; do
-  echo "Building devshell-${SDK}"
-  sed "s~<SDK>~${SDK}~" Dockerfile | docker build -t "joelpm/devshell-${SDK}" -
+  IMG="devshell-${SDK}"
+  echo "Building ${IMG}"
+  sed "s~<SDK>~${SDK}~" Dockerfile > "Dockerfile.${IMG}"
+  docker build -t "joelpm/${IMG}" . -f "Dockerfile.${IMG}"
+  if [ $? -eq 0 ]; then
+    docker push "joelpm/${IMG}"
+    rm "Dockerfile.${IMG}"
+    echo "Built $IMG"
+  fi
 done

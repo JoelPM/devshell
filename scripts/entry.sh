@@ -10,9 +10,9 @@ fi
 #if [ "$1" = "script" ]; then
 if [ ! -t 0 ]; then
   if [ "${DOCKER_IMAGE}" == "<DOCKER_IMAGE>" ]; then
-    cat /devshell/devshell.sh
+    cat /devshell/run.sh
   else
-    sed "s~IMG=~IMG='${DOCKER_IMAGE}'~g" /devshell/devshell.sh
+    sed "s~IMG=~IMG='${DOCKER_IMAGE}'~g" /devshell/run.sh
   fi
   exit 0;
 fi
